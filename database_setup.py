@@ -33,5 +33,5 @@ class Item(Base):
 	description = Column(String(250), nullable=False)
 
 
-engine = create_engine('sqlite:///catalog')
+engine = create_engine('sqlite:///catalog.db')
 Base.metadata.create_all(engine)
