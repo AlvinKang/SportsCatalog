@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database_setup import Base, User, Category, Item
 
-engine = create_engine("sqllite:///catalog.db")
+engine = create_engine("sqlite:///catalog.db")
 
 Base.metadata.bind = engine
 
@@ -25,3 +25,5 @@ item1 = Item(user_id=1, category_name="Baseball", name="Youth Bat",
 	description="Youth Bat a good option for players who value the traditional feel of a one-piece bat and the classic ping off a durable aluminum barrel.")
 session.add(item1)
 session.commit()
+
+print "Database loaded with users, categories, items!"
