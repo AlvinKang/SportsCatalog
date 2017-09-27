@@ -15,3 +15,7 @@ user1 = User(name="Heather Weber", email="heatherweber1983@gmail.com")
 session.add(user1)
 session.commit()
 
+# Create category
+category1 = Category(name="Baseball")
+session.add(category1)
+session.commit()
