@@ -29,7 +29,7 @@ class Item(Base):
 	id = Column(Integer, primary_key=True)
 	user_id = Column(Integer, ForeignKey('user.id'))
 	category_name = Column(String(250), ForeignKey('category.name'))
-	name = Column(String(250). nullable=False)
+	name = Column(String(250), nullable=False)
 	description = Column(String(250), nullable=False)
 
 
