@@ -29,9 +29,9 @@ def showCategories():
 @app.route('/catalog/<category_name>/')
 def showItems(category_name):
 	items = session.query(Item).filter_by(category_name=category_name).all()
-	for item in items:
-		print item.name
-		print category_name
+	# for item in items:
+	# 	print item.name
+	# 	print category_name
 	return render_template('items.html', category_name=category_name, items=items)
 
 # Create a new item
@@ -50,11 +50,25 @@ def newItem():
 # ITEM PAGE
 
 # Show item info
-@app.route('/catalog/<category_name>/items/<item_name>/')
+@app.route('/catalog/<category_name>/<item_name>/')
 def showItemInfo(category_name, item_name):
 	item = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
 	return render_template('itemInfo.html', item=item)
 
+# Edit item info
+@app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
+def editItemInfo(category_name, item_name):
+	editedItem = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
+	if request.method == 'POST':
+		if request.form['itemName']:
+			editedItem.name = request.form['itemName']
+		if request.form['itemDescription']:
+			editedItem.description = request.form['itemDescription']
+		session.add(editedItem)
+		session.commit()
+		return redirect(url_for('showItems', category_name=category_name))
+	else:
+		return render_template('editItem.html', category_name=category_name, item=editedItem)
 
 if __name__ == '__main__':
 	app.debug = True
