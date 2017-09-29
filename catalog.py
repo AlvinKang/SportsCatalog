@@ -70,6 +70,17 @@ def editItemInfo(category_name, item_name):
 	else:
 		return render_template('editItem.html', category_name=category_name, item=editedItem)
 
+# Delete item
+@app.route('/catalog/<category_name>/<item_name>/delete/', methods=['GET', 'POST'])
+def deleteItem(category_name, item_name):
+	deletedItem = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
+	if request.method == 'POST':
+		session.delete(deletedItem)
+		session.commit()
+		return redirect(url_for('showItems', category_name=category_name))
+	else:
+		return render_template('deleteItem.html', item=deletedItem)
+
 if __name__ == '__main__':
 	app.debug = True
 	app.run(host='0.0.0.0', port=5000)
