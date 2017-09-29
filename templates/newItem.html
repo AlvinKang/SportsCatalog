@@ -6,17 +6,20 @@
 <body>
 	<h1>New Item</h1>
 	<form action="{{ url_for('newItem') }}" method="post">
-		<label for="itemName">Name:</label><br>
-			<input type="text" name="itemName" rows="5" cols="40" required><br>
-		<label for="itemDescription"></label><br>
-			<textarea types="text" name="itemDescription" rows="10" cols="60" required></textarea><br>
-		<label for="category">Category:</label><br>
-			<input type="radio" name="category" value="Baseball" checked="checked"> Baseball<br>
-			<input type="radio" name="category" value="Soccer"> Soccer<br>
-			<input type="radio" name="category" value="Basketball"> Basketball<br>
-			<input type="radio" name="category" value="Tennis"> Tennis<br>
-			<input type="radio" name="category" value="Football"> Football<br>
-			<input type="submit" name="newItem" value="Create"><br>
+		<label for="itemName">Name</label><br>
+			<input type="text" name="itemName" rows="5" cols="40" required><br><br>
+		<label for="itemDescription">Description</label><br>
+			<textarea types="text" name="itemDescription" rows="10" cols="60" required></textarea><br><br>
+		<label for="category">Category</label><br>
+			<select name="category">
+				<option value="Baseball">Baseball</option>
+				<option value="Soccer">Soccer</option>
+				<option value="Basketball">Basketball</option>
+				<option value="Tennis">Tennis</option>
+				<option value="Football">Football</option>
+			</select>
+			<br><br>
+			<input type="submit" name="newItem" value="Create">
 			<a href="{{ url_for('showCategories') }}">Cancel</a>
 	</form>
 </body>
