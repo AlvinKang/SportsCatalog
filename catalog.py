@@ -13,16 +13,18 @@ import requests
 # Instantiate Flask app
 app = Flask(__name__)
 
-# Boot up and conenct to database
+# Boot up and connect to database
 engine = create_engine('sqlite:///catalog.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # Retrieve client information from client_secrets.json
-CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Catalog App"
+
+# User login flag
+logged_in = False
 
 #########################################
 # ANTI-FORGERY TOKEN
@@ -30,6 +32,8 @@ APPLICATION_NAME = "Catalog App"
 # Google+ login page
 @app.route('/login')
 def showLogin():
+	if logged_in:
+		redirect('/')
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
 	login_session['state'] = state
 	return render_template('login.html', STATE=state)
@@ -93,6 +97,8 @@ def gconnect():
 	if stored_access_token is not None and gplus_id == stored_gplus_id:
 		response = make_response(json.dumps('Current user is already connected', 200))
 		response.headers['Content-Type'] = 'application/json'
+		global logged_in
+		logged_in = True
 		return response
 
 	# Store the access token in the session for later use
@@ -110,19 +116,33 @@ def gconnect():
 	login_session['email'] = data['email']
 	login_session['picture'] = data['picture']
 
+	# See if user exists, if it doesnt make a new one
+	user_id = getUserID(login_session['email'])
+	if not user_id:
+		user_id = createUser(login_session)
+	login_session['user_id'] = user_id
+
+	logged_in = True
+
+	# Format and return loading page
 	output = ''
 	output += '<h1>Welcome, '
 	output += login_session['username']
 	output += '!</h1>'
 	output += '<img src="'
 	output += login_session['picture']
-	output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+	output += ' " style = "width: 300px; height: 300px; border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 	flash("you are now logged in as %s" % login_session['username'])
 	return output
 
 # Route for disconnect (logout)
+@app.route('/logout')
 @app.route('/gdisconnect')
 def gdisconnect():
+	global logged_in
+	# If user is not already logged in, just redirect to main page
+	if not logged_in:
+		return redirect('/')
 	access_token = login_session.get('access_token')
 	# If user is not logged in
 	if access_token is None:
@@ -146,13 +166,36 @@ def gdisconnect():
 		del login_session['picture']
 		response = make_response(json.dumps('Successfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		return response
+		logged_in = False
+		output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
+		return output
 
 	# If other response, return error statement
 	else:
 		response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
 		response.headers['Content-Type'] = 'application/json'
 		return response
+
+#########################################
+# User helper functions
+
+def createUser(login_session):
+	newUser = User(name=login_session['username'], email=login_session['email'])
+	session.add(newUser)
+	session.commit()
+	user = session.query(User).filter_by(email=login_session['email']).first()
+	return user.id
+
+def getUserInfo(user_id):
+	user = session.query(User).filter_by(id=user_id).one()
+	return user
+
+def getUserID(email):
+	try:
+		user = session.query(User).filter_by(email=email).one()
+		return user.id
+	except:
+		return None
 
 #########################################
 # HOME PAGE
@@ -162,7 +205,7 @@ def gdisconnect():
 @app.route('/catalog/')
 def showCategories():
 	categories = session.query(Category).all()
-	return render_template('categories.html', categories=categories)
+	return render_template('categories.html', categories=categories, logged_in=logged_in)
 
 #########################################
 # CATEGORY ITEMS PAGE
