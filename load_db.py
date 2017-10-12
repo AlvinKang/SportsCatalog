@@ -117,4 +117,24 @@ session.add(item3)
 
 session.commit()
 
+# Create golf category
+category = Category(name="Golf")
+session.add(category)
+session.commit()
+
+# Create items for golf
+item1 = Item(user_id=2, category_name="Golf", name="XR Driver",
+	description="Speed up your tee game with the XR Driver. R technology reduces face weight and lowers Center of Gravity by 17% to create a blend of increased ball speeds and playability.")
+session.add(item1)
+
+item2 = Item(user_id=2, category_name="Golf", name="X-Carry Stand Bag",
+	description="Transport your clubs in comfort and style with the X-Carry Stand Bag. A 6-way top with 3 full-length dividers provides exceptional club separation and protection. 6 strategically-placed pockets, including a velour-lined valuables pockets and full-length apparel pocket, provide numerous storage options.")
+session.add(item2)
+
+item3 = Item(user_id=2, category_name="Golf", name="Command Golf Shoes",
+	description="Achieve next-level performance on the course with Command Golf Shoes. Performance textile uppers equipped with a waterproof membrane, articulated tongue and technology provide complete support, protection and comfort in any playing condition.")
+session.add(item3)
+
+session.commit()
+
 print "Database loaded with users, categories, items!"
