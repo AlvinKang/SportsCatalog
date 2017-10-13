@@ -4,6 +4,19 @@
 	<title></title>
 </head>
 <body>
+	<nav class="navbar navbar-light bg-light">
+	  <a class="navbar-brand" href="{{ url_for('showCategories') }}">
+	    <img src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+	    Catalog
+	  </a>
+	  {% if not logged_in %}
+	  <a class="btn btn-primary" href="{{ url_for('showLogin')}}" role="button">Login</a>
+	  {% endif %}
+	  {% if logged_in %}
+	  <a class="btn btn-primary" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
+	  {% endif %}
+	</nav>
+	<a href="{{ url_for('newItem') }}">Create New Item</a>
 	<h1>{{ category_name }}</h1>
 	{% for item in items %}
 	<p><a href="{{ url_for('showItemInfo', category_name=category_name, item_name=item.name) }}">{{item.name}}</a></p>
