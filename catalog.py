@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Category, Item
@@ -196,6 +196,27 @@ def getUserID(email):
 		return user.id
 	except:
 		return None
+
+#########################################
+# API-JSON endpoints
+
+# Categories
+@app.route('/catalog/JSON/')
+def catalogJSON():
+	categories = session.query(Category).all()
+	return jsonify(Categories=[i.serialize for i in categories])
+
+# Items of Category
+@app.route('/catalog/<category_name>/JSON/')
+def itemsJSON(category_name):
+	items = session.query(Item).filter_by(category_name=category_name).all()
+	return jsonify(CategoryItems=[i.serialize for i in items])
+
+# Item
+@app.route('/catalog/<category_name>/<item_name>/JSON/')
+def itemInfoJSON(category_name, item_name):
+	item = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
+	return jsonify(Item=item.serialize)
 
 #########################################
 # HOME PAGE
