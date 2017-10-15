@@ -268,7 +268,12 @@ def newItem():
 @app.route('/catalog/<category_name>/<item_name>/')
 def showItemInfo(category_name, item_name):
 	item = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
-	return render_template('itemInfo.html', item=item, logged_in=logged_in)
+	# Edit/Delete options only shown to item's creator
+	creator = getUserInfo(item.user_id)
+	if 'username' not in login_session or creator.id != login_session['user_id']:
+		return render_template('publicItemInfo.html', item=item, logged_in=logged_in)
+	else:
+		return render_template('itemInfo.html', item=item, logged_in=logged_in)
 
 # Edit item info
 @app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
