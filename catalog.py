@@ -239,10 +239,8 @@ def showCategories():
 @app.route('/catalog/<category_name>/')
 def showItems(category_name):
 	items = session.query(Item).filter_by(category_name=category_name).all()
-	# for item in items:
-	# 	print item.name
-	# 	print category_name
-	return render_template('items.html', category_name=category_name, items=items)
+	users = [session.query(User).filter_by(id=i.user_id).one() for i in items]
+	return render_template('items.html', category_name=category_name, items=items, users=users)
 
 # Create a new item
 @app.route('/catalog/new/', methods=['GET', 'POST'])
