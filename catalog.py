@@ -268,7 +268,7 @@ def newItem():
 @app.route('/catalog/<category_name>/<item_name>/')
 def showItemInfo(category_name, item_name):
 	item = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
-	return render_template('itemInfo.html', item=item)
+	return render_template('itemInfo.html', item=item, logged_in=logged_in)
 
 # Edit item info
 @app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
@@ -283,7 +283,7 @@ def editItemInfo(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('editItem.html', category_name=category_name, item=editedItem)
+		return render_template('editItem.html', category_name=category_name, item=editedItem, logged_in=logged_in)
 
 # Delete item
 @app.route('/catalog/<category_name>/<item_name>/delete/', methods=['GET', 'POST'])
@@ -294,7 +294,7 @@ def deleteItem(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('deleteItem.html', item=deletedItem)
+		return render_template('deleteItem.html', item=deletedItem, logged_in=logged_in)
 
 if __name__ == '__main__':
 	app.debug = True
