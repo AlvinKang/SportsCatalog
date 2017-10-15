@@ -226,7 +226,11 @@ def itemInfoJSON(category_name, item_name):
 @app.route('/catalog/')
 def showCategories():
 	categories = session.query(Category).all()
-	return render_template('categories.html', categories=categories, logged_in=logged_in)
+	# If user not logged in
+	if 'username' not in login_session:
+		return render_template('publicCategories.html', categories=categories, logged_in=logged_in)
+	else:
+		return render_template('categories.html', categories=categories, logged_in=logged_in)
 
 #########################################
 # CATEGORY ITEMS PAGE
