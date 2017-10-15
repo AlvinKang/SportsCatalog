@@ -249,6 +249,9 @@ def showItems(category_name):
 # Create a new item
 @app.route('/catalog/new/', methods=['GET', 'POST'])
 def newItem():
+	# Restrict access for logged in user only
+	if 'username' not in login_session:
+		return redirect('/')
 	if request.method == 'POST':
 		newItem = Item(user_id=1, category_name=request.form['category'], name=request.form['itemName'], description=request.form['itemDescription'])
 		session.add(newItem)
