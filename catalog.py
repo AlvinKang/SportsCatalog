@@ -226,7 +226,7 @@ def itemInfoJSON(category_name, item_name):
 @app.route('/catalog/')
 def showCategories():
 	categories = session.query(Category).all()
-	# If user not logged in
+	# If user not logged in, remove option to create new items
 	if 'username' not in login_session:
 		return render_template('publicCategories.html', categories=categories, logged_in=logged_in)
 	else:
