@@ -240,7 +240,11 @@ def showCategories():
 def showItems(category_name):
 	items = session.query(Item).filter_by(category_name=category_name).all()
 	users = [session.query(User).filter_by(id=i.user_id).one() for i in items]
-	return render_template('items.html', category_name=category_name, items=items, users=users)
+	# If user not logged in, remove creator name and option to create new items
+	if 'username' not in login_session:
+		return render_template('publicItems.html', category_name=category_name, items=items, logged_in=logged_in)
+	else:
+		return render_template('items.html', category_name=category_name, items=items, users=users, logged_in=logged_in)
 
 # Create a new item
 @app.route('/catalog/new/', methods=['GET', 'POST'])
