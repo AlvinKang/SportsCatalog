@@ -18,7 +18,7 @@
 	  <a class="btn btn-primary" href="{{ url_for('showLogin')}}" role="button">Login</a>
 	  {% endif %}
 	  {% if logged_in %}
-	  <a class="btn btn-primary" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
+	  <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
 	  {% endif %}
 	</nav>
 	<a href="{{ url_for('newItem') }}">Create New Item</a>
