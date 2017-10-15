@@ -258,7 +258,7 @@ def newItem():
 		session.commit()
 		return redirect(url_for('showCategories'))
 	else:
-		return render_template('newItem.html')
+		return render_template('newItem.html', logged_in=logged_in)
 
 
 #########################################
