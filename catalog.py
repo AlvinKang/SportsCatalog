@@ -122,6 +122,14 @@ def gconnect():
 		user_id = createUser(login_session)
 	login_session['user_id'] = user_id
 
+	# Debug
+	print "################################"
+	print "This is the current user:\nId: %s\nName: %s\nEmail: %s" % (str(user_id), login_session['username'], login_session['email'])
+	print "################################"
+	# users = session.query(User).all()
+	# for u in users:
+	# 	print (u.id, u.name)
+
 	logged_in = True
 
 	# Format and return loading page
@@ -253,7 +261,7 @@ def newItem():
 	if 'username' not in login_session:
 		return redirect('/')
 	if request.method == 'POST':
-		newItem = Item(user_id=1, category_name=request.form['category'], name=request.form['itemName'], description=request.form['itemDescription'])
+		newItem = Item(user_id=login_session['user_id'], category_name=request.form['category'], name=request.form['itemName'], description=request.form['itemDescription'])
 		session.add(newItem)
 		session.commit()
 		return redirect(url_for('showCategories'))
