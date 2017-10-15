@@ -21,7 +21,6 @@
 	  <a class="btn btn-primary" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
 	  {% endif %}
 	</nav>
-	<a href="{{ url_for('newItem') }}">Create New Item</a>
 	<h1>Edit Item</h1>
 	<form action="{{ url_for('editItemInfo', category_name=category_name, item_name=item.name) }}" method="post">
 		<label for="itemName">Name</label><br>
