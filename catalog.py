@@ -327,6 +327,37 @@ def deleteItem(category_name, item_name):
 	else:
 		return render_template('deleteItem.html', item=deletedItem, logged_in=logged_in)
 
+#########################################
+# Debug
+
+# Force logout / disconnect user when gdisconnect fails to revoke
+@app.route('/forcedc/')
+def forceDisconnect():
+	global logged_in
+	# If user is not already logged in, just redirect to main page
+	if not logged_in:
+		return redirect('/')
+	access_token = login_session.get('access_token')
+
+	# If user is not logged in
+	if access_token is None:
+		print 'Access token is none'
+		response = make_response(json.dumps('Current user is not connected.', 401))
+		response.headers['Content-Type'] = 'application/json'
+		return response
+
+	# Delete session user information
+	del login_session['access_token']
+	del login_session['gplus_id']
+	del login_session['username']
+	del login_session['email']
+	del login_session['picture']
+	response = make_response(json.dumps('Successfully disconnected.'), 200)
+	response.headers['Content-Type'] = 'application/json'
+	logged_in = False
+	output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
+	return output
+
 if __name__ == '__main__':
 	app.debug = True
 	app.secret_key = 'ed67095a42efbb9c86ead967e1d4cf0d'
