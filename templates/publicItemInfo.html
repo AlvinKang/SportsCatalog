@@ -21,7 +21,7 @@
 	  <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
 	  {% endif %}
 	</nav>
-	<h1>{{ item.category_name }}</h1>
+	<h1><a href="{{ url_for('showItems', category_name=item.category_name) }}">{{ item.category_name }}</a></h1>
 	<h2>{{ item.name }}</h2>
 	<p>{{ item.description }}</p>
 
