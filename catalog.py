@@ -238,7 +238,7 @@ def showCategories():
 	if 'username' not in login_session:
 		return render_template('publicCategories.html', categories=categories, logged_in=logged_in)
 	else:
-		return render_template('categories.html', categories=categories, logged_in=logged_in)
+		return render_template('categories.html', categories=categories, logged_in=logged_in, user_name=login_session['username'])
 
 #########################################
 # CATEGORY ITEMS PAGE
@@ -252,7 +252,7 @@ def showItems(category_name):
 	if 'username' not in login_session:
 		return render_template('publicItems.html', category_name=category_name, items=items, logged_in=logged_in)
 	else:
-		return render_template('items.html', category_name=category_name, items=items, users=users, logged_in=logged_in)
+		return render_template('items.html', category_name=category_name, items=items, users=users, logged_in=logged_in, user_name=login_session['username'])
 
 # Create a new item
 @app.route('/catalog/new/', methods=['GET', 'POST'])
@@ -266,7 +266,7 @@ def newItem():
 		session.commit()
 		return redirect(url_for('showCategories'))
 	else:
-		return render_template('newItem.html', logged_in=logged_in)
+		return render_template('newItem.html', logged_in=logged_in, user_name=login_session['username'])
 
 
 #########################################
@@ -281,7 +281,7 @@ def showItemInfo(category_name, item_name):
 	if 'username' not in login_session or creator.id != login_session['user_id']:
 		return render_template('publicItemInfo.html', item=item, logged_in=logged_in)
 	else:
-		return render_template('itemInfo.html', item=item, logged_in=logged_in)
+		return render_template('itemInfo.html', item=item, logged_in=logged_in, user_name=login_session['username'])
 
 # Edit item info
 @app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
@@ -305,7 +305,7 @@ def editItemInfo(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('editItem.html', category_name=category_name, item=editedItem, logged_in=logged_in)
+		return render_template('editItem.html', category_name=category_name, item=editedItem, logged_in=logged_in, user_name=login_session['username'])
 
 # Delete item
 @app.route('/catalog/<category_name>/<item_name>/delete/', methods=['GET', 'POST'])
@@ -325,7 +325,7 @@ def deleteItem(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('deleteItem.html', item=deletedItem, logged_in=logged_in)
+		return render_template('deleteItem.html', item=deletedItem, logged_in=logged_in, user_name=login_session['username'])
 
 #########################################
 # Debug
