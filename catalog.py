@@ -35,6 +35,7 @@ def showLogin():
 	if logged_in:
 		redirect('/')
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+	global login_session
 	login_session['state'] = state
 	return render_template('login.html', STATE=state)
 
@@ -44,6 +45,7 @@ def showLogin():
 # Gconnect route
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+	global login_session
 	# Validate state token
 	if request.args.get('state') != login_session['state']:
 		response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -93,6 +95,9 @@ def gconnect():
 		return response
 
 	stored_access_token = login_session.get('access_token')
+	print "========================"
+	print "This is my stored access token: %s" % stored_access_token
+	print "========================"
 	stored_gplus_id = login_session.get('gplus_id')
 	if stored_access_token is not None and gplus_id == stored_gplus_id:
 		response = make_response(json.dumps('Current user is already connected', 200))
@@ -103,6 +108,9 @@ def gconnect():
 
 	# Store the access token in the session for later use
 	login_session['access_token'] = access_token
+	print "========================"
+	print "This is my NEW access token: %s" % login_session.get('access_token')
+	print "========================"
 	login_session['gplus_id'] = gplus_id
 
 	# Get user info
@@ -124,7 +132,7 @@ def gconnect():
 
 	# Debug
 	print "################################"
-	print "This is the current user:\nId: %s\nName: %s\nEmail: %s" % (str(user_id), login_session['username'], login_session['email'])
+	print "This is the current user:\nId: %s\nName: %s\nEmail: %s\nToken: %s" % (str(user_id), login_session['username'], login_session['email'], login_session['access_token'])
 	print "################################"
 	# users = session.query(User).all()
 	# for u in users:
@@ -152,6 +160,9 @@ def gdisconnect():
 	if not logged_in:
 		return redirect('/')
 	access_token = login_session.get('access_token')
+	print "=========LOGOUT========="
+	print "My access token is: %s" % access_token
+	print "=========LOGOUT========="
 	# If user is not logged in
 	if access_token is None:
 		print 'Access token is none'
@@ -234,6 +245,7 @@ def itemInfoJSON(category_name, item_name):
 @app.route('/catalog/')
 def showCategories():
 	categories = session.query(Category).all()
+	global login_session
 	# If user not logged in, remove option to create new items
 	if 'username' not in login_session:
 		return render_template('publicCategories.html', categories=categories, logged_in=logged_in)
