@@ -274,6 +274,10 @@ def newItem():
 		return redirect('/')
 	if request.method == 'POST':
 		newItem = Item(user_id=login_session['user_id'], category_name=request.form['category'], name=request.form['itemName'], description=request.form['itemDescription'])
+		entries = session.query(Item).filter_by(name=newItem.name, category_name=newItem.category_name).all()
+		# If the new item is a duplicate entry (same name and category) send alert and redirect
+		if len(entries) > 0:
+			return "<script>function myFunction() {alert('This is a duplicate item. Please enter a different name or category name.');}</script><body onload='myFunction()'><meta http-equiv='refresh' content='1;url=/catalog/%s/' />" % (newItem.category_name)
 		session.add(newItem)
 		session.commit()
 		return redirect(url_for('showCategories'))
