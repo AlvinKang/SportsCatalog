@@ -287,10 +287,12 @@ def showItemInfo(category_name, item_name):
 	item = session.query(Item).filter_by(category_name=category_name, name=item_name).one()
 	# Edit/Delete options only shown to item's creator
 	creator = getUserInfo(item.user_id)
-	if 'username' not in login_session or creator.id != login_session['user_id']:
+	logged_in = 'username' in login_session
+	if not logged_in:
 		return render_template('publicItemInfo.html', item=item)
 	else:
-		return render_template('itemInfo.html', item=item, user_name=login_session['username'])
+		is_creator = creator.id == login_session['user_id']
+		return render_template('itemInfo.html', item=item, user_name=login_session['username'], is_creator=is_creator)
 
 # Edit item info
 @app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
