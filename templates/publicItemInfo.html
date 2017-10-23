@@ -14,12 +14,7 @@
 	    <img src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" class="d-inline-block align-top" alt="">
 	    Catalog
 	  </a>
-	  {% if not logged_in %}
 	  <a class="btn btn-primary" href="{{ url_for('showLogin')}}" role="button">Login</a>
-	  {% endif %}
-	  {% if logged_in %}
-	  <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
-	  {% endif %}
 	</nav>
 	<h1><a href="{{ url_for('showItems', category_name=item.category_name) }}">{{ item.category_name }}</a></h1>
 	<h2>{{ item.name }}</h2>

@@ -23,8 +23,6 @@ session = DBSession()
 CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Catalog App"
 
-# User login flag
-logged_in = False
 
 #########################################
 # ANTI-FORGERY TOKEN
@@ -32,10 +30,11 @@ logged_in = False
 # Google+ login page
 @app.route('/login')
 def showLogin():
-	if logged_in:
+	global login_session
+	# If user is already logged in redirect to main page
+	if 'username' in login_session:
 		redirect('/')
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
-	global login_session
 	login_session['state'] = state
 	return render_template('login.html', STATE=state)
 
@@ -102,8 +101,6 @@ def gconnect():
 	if stored_access_token is not None and gplus_id == stored_gplus_id:
 		response = make_response(json.dumps('Current user is already connected', 200))
 		response.headers['Content-Type'] = 'application/json'
-		global logged_in
-		logged_in = True
 		return response
 
 	# Store the access token in the session for later use
@@ -138,8 +135,6 @@ def gconnect():
 	# for u in users:
 	# 	print (u.id, u.name)
 
-	logged_in = True
-
 	# Format and return loading page
 	output = ''
 	output += '<h1>Welcome, '
@@ -155,9 +150,8 @@ def gconnect():
 @app.route('/logout')
 @app.route('/gdisconnect')
 def gdisconnect():
-	global logged_in
 	# If user is not already logged in, just redirect to main page
-	if not logged_in:
+	if 'username' not in login_session:
 		return redirect('/')
 	access_token = login_session.get('access_token')
 	print "=========LOGOUT========="
@@ -185,7 +179,6 @@ def gdisconnect():
 		del login_session['picture']
 		response = make_response(json.dumps('Successfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		logged_in = False
 		output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
 		return output
 
@@ -245,12 +238,12 @@ def itemInfoJSON(category_name, item_name):
 @app.route('/catalog/')
 def showCategories():
 	categories = session.query(Category).all()
-	global login_session
 	# If user not logged in, remove option to create new items
 	if 'username' not in login_session:
-		return render_template('publicCategories.html', categories=categories, logged_in=logged_in)
+		return render_template('publicCategories.html', categories=categories)
 	else:
-		return render_template('categories.html', categories=categories, logged_in=logged_in, user_name=login_session['username'])
+		print "Username is: %s" % login_session['username']
+		return render_template('categories.html', categories=categories,user_name=login_session['username'])
 
 #########################################
 # CATEGORY ITEMS PAGE
@@ -262,9 +255,9 @@ def showItems(category_name):
 	users = [session.query(User).filter_by(id=i.user_id).one() for i in items]
 	# If user not logged in, remove creator name and option to create new items
 	if 'username' not in login_session:
-		return render_template('publicItems.html', category_name=category_name, items=items, logged_in=logged_in)
+		return render_template('publicItems.html', category_name=category_name, items=items)
 	else:
-		return render_template('items.html', category_name=category_name, items=items, users=users, logged_in=logged_in, user_name=login_session['username'])
+		return render_template('items.html', category_name=category_name, items=items, users=users, user_name=login_session['username'])
 
 # Create a new item
 @app.route('/catalog/new/', methods=['GET', 'POST'])
@@ -282,7 +275,7 @@ def newItem():
 		session.commit()
 		return redirect(url_for('showCategories'))
 	else:
-		return render_template('newItem.html', logged_in=logged_in, user_name=login_session['username'])
+		return render_template('newItem.html', user_name=login_session['username'])
 
 
 #########################################
@@ -295,9 +288,9 @@ def showItemInfo(category_name, item_name):
 	# Edit/Delete options only shown to item's creator
 	creator = getUserInfo(item.user_id)
 	if 'username' not in login_session or creator.id != login_session['user_id']:
-		return render_template('publicItemInfo.html', item=item, logged_in=logged_in)
+		return render_template('publicItemInfo.html', item=item)
 	else:
-		return render_template('itemInfo.html', item=item, logged_in=logged_in, user_name=login_session['username'])
+		return render_template('itemInfo.html', item=item, user_name=login_session['username'])
 
 # Edit item info
 @app.route('/catalog/<category_name>/<item_name>/edit/', methods=['GET', 'POST'])
@@ -329,7 +322,7 @@ def editItemInfo(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('editItem.html', category_name=category_name, item=editedItem, logged_in=logged_in, user_name=login_session['username'])
+		return render_template('editItem.html', category_name=category_name, item=editedItem, user_name=login_session['username'])
 
 # Delete item
 @app.route('/catalog/<category_name>/<item_name>/delete/', methods=['GET', 'POST'])
@@ -349,7 +342,7 @@ def deleteItem(category_name, item_name):
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
-		return render_template('deleteItem.html', item=deletedItem, logged_in=logged_in, user_name=login_session['username'])
+		return render_template('deleteItem.html', item=deletedItem, user_name=login_session['username'])
 
 #########################################
 # Debug
@@ -357,9 +350,8 @@ def deleteItem(category_name, item_name):
 # Force logout / disconnect user when gdisconnect fails to revoke
 @app.route('/forcedc/')
 def forceDisconnect():
-	global logged_in
 	# If user is not already logged in, just redirect to main page
-	if not logged_in:
+	if 'username' not in login_session:
 		return redirect('/')
 	access_token = login_session.get('access_token')
 
@@ -378,7 +370,6 @@ def forceDisconnect():
 	del login_session['picture']
 	response = make_response(json.dumps('Successfully disconnected.'), 200)
 	response.headers['Content-Type'] = 'application/json'
-	logged_in = False
 	output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
 	return output
 
