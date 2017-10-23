@@ -314,9 +314,17 @@ def editItemInfo(category_name, item_name):
 
 	if request.method == 'POST':
 		if request.form['itemName']:
+			entries = session.query(Item).filter_by(name=request.form['itemName'], category_name=editedItem.category_name).all()
+
+			# If duplicate (same name and category name, show alert and redirect
+			if len(entries) > 0:
+				return "<script>function myFunction() {alert('This is a duplicate item. Please enter a different name or category name.');}</script><body onload='myFunction()'><meta http-equiv='refresh' content='1;url=/catalog/%s/' />" % (editedItem.category_name)
+
 			editedItem.name = request.form['itemName']
+
 		if request.form['itemDescription']:
 			editedItem.description = request.form['itemDescription']
+
 		session.add(editedItem)
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
