@@ -1,0 +1,13 @@
+.img-thumbnail {
+	width: 200px;
+	height: 200px;
+}
+
+.category-label {
+	font-size: 2em;
+}
+
+a:hover {
+    text-decoration: none;
+    color: red;
+}
