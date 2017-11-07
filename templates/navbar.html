@@ -1,11 +1,9 @@
 <!-- Logged in navbar -->
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand margin-right-cancel" href="{{ url_for('showCategories') }}">
-    <img src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-    Catalog
+  <a class="navbar-brand" href="{{ url_for('showCategories') }}">
+    <img class="d-inline-block align-top resize" src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" >
+    <span class="blankout">Catalog</span>
   </a>
-  <span class="navbar-text" id="left-offset">
-    Logged in as {{ user_name }}
-  </span>
+  <a class="btn btn-success" id="left-offset" href="{{ url_for('newItem') }}">New Item</a>
   <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
 </nav>
