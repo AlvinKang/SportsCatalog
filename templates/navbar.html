@@ -1,8 +1,8 @@
 <!-- Logged in navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-dark bg-dark">
   <a class="navbar-brand" href="{{ url_for('showCategories') }}">
-    <img class="d-inline-block align-top resize" src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" >
-    <span class="blankout">Catalog</span>
+    <img class="d-inline-block align-top" src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" >
+    <span class="blankout light-blue">Catalog</span>
   </a>
   <a class="btn btn-success" id="left-offset" href="{{ url_for('newItem') }}">New Item</a>
   <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
