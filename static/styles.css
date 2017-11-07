@@ -11,3 +11,7 @@ a:hover {
     text-decoration: none;
     color: red;
 }
+
+#left-offset {
+	margin-left: -2rem;
+}

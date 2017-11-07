@@ -1,10 +1,10 @@
 <!-- Logged in navbar -->
 <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="{{ url_for('showCategories') }}">
+  <a class="navbar-brand margin-right-cancel" href="{{ url_for('showCategories') }}">
     <img src="https://image.flaticon.com/icons/svg/167/167739.svg" width="30" height="30" class="d-inline-block align-top" alt="">
     Catalog
   </a>
-  <span class="navbar-text">
+  <span class="navbar-text" id="left-offset">
     Logged in as {{ user_name }}
   </span>
   <a class="btn btn-danger" href="{{ url_for('gdisconnect')}}" role="button">Logout</a>
