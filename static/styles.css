@@ -31,6 +31,10 @@ a:hover {
 	cursor: pointer;
 }
 
+strong {
+	font-size: 1.2em;
+}
+
 /* Breakpoint to adjust spacing for small devices */
 @media (max-width: 374px) {
 	#left-offset {
