@@ -1,6 +1,15 @@
+body {
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 500;
+}
+
 .img-thumbnail {
 	width: 200px;
 	height: 200px;
+}
+
+.brand-name {
+	font-family: 'Julius Sans One', sans-serif;
 }
 
 .category-label {
@@ -14,7 +23,7 @@ a:hover {
 }
 
 #left-offset {
-	margin-left: -2.3rem;
+	margin-left: -4rem;
 }
 
 .light-blue:hover {
@@ -36,17 +45,13 @@ strong {
 }
 
 /* Breakpoint to adjust spacing for small devices */
-@media (max-width: 374px) {
+@media (max-width: 419px) {
 	#left-offset {
 		margin-left: 0rem;
 	}
 
-	#right-none {
-		margin-right: 0rem;
-	}
-
-	.navbar * {
-		font-size: 0.8rem;
+	#right-change {
+		margin-right: 2.5rem;
 	}
 
 	.blankout {
