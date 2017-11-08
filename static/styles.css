@@ -27,6 +27,10 @@ a:hover {
 	transition: all .3s ease-in-out;
 }
 
+.btn:hover {
+	cursor: pointer;
+}
+
 /* Breakpoint to adjust spacing for small devices */
 @media (max-width: 374px) {
 	#left-offset {
