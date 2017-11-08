@@ -1,20 +1,30 @@
 {% extends "main.html" %} {% block content %} {% include "navbar.html" %}
-<h1>New Item</h1>
-<form action="{{ url_for('newItem') }}" method="post">
-	<label for="itemName">Name</label><br>
-		<input type="text" name="itemName" rows="5" cols="40" required><br><br>
-	<label for="itemDescription">Description</label><br>
-		<textarea types="text" name="itemDescription" rows="10" cols="60" required></textarea><br><br>
-	<label for="category">Category</label><br>
-		<select name="category">
-			<option value="Baseball">Baseball</option>
-			<option value="Soccer">Soccer</option>
-			<option value="Basketball">Basketball</option>
-			<option value="Tennis">Tennis</option>
-			<option value="Football">Football</option>
-		</select>
-		<br><br>
-		<input type="submit" name="newItem" value="Create">
-		<a href="{{ url_for('showCategories') }}">Cancel</a>
-</form>
+<div class="container mt-3">
+	<h1 class="display-4 text-center">New Item</h1>
+	<form class="mx-5" action="{{ url_for('newItem') }}" method="post">
+		<div class="form-group">
+			<label for="itemName">Name</label>
+			<input class="form-control" type="text" name="itemName" required>
+		</div>
+		<div class="form-group">
+			<label for="itemDescription">Description</label>
+				<textarea class="form-control" types="text" name="itemDescription" rows="10" required></textarea>
+		</div>
+		<div class="form-group">
+			<label for="category">Category</label>
+				<select class="form-control" name="category">
+					<option value="Baseball">Baseball</option>
+					<option value="Basketball">Basketball</option>
+					<option value="Soccer">Soccer</option>
+					<option value="Tennis">Tennis</option>
+					<option value="Football">Football</option>
+					<option value="Golf">Golf</option>
+				</select>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-primary mx-3" type="submit" name="newItem">Create</button>
+			<a class="btn btn-danger align-middle mx-3" href="{{ url_for('showItems', category_name=category_name) }}">Cancel</a>
+		</div>
+	</form>
+</div>
 {% endblock %}
