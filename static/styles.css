@@ -14,7 +14,7 @@ a:hover {
 }
 
 #left-offset {
-	margin-left: -2rem;
+	margin-left: -2.3rem;
 }
 
 .light-blue:hover {
@@ -31,6 +31,10 @@ a:hover {
 @media (max-width: 374px) {
 	#left-offset {
 		margin-left: 0rem;
+	}
+
+	#right-none {
+		margin-right: 0rem;
 	}
 
 	.navbar * {
