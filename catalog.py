@@ -142,7 +142,7 @@ def gconnect():
 	output += '!</h1>'
 	output += '<img src="'
 	output += login_session['picture']
-	output += ' " style = "width: 300px; height: 300px; border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+	output += ' " style = "width: 300px; height: 300px; border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;">'
 	flash("you are now logged in as %s" % login_session['username'])
 	return output
 
@@ -179,7 +179,7 @@ def gdisconnect():
 		del login_session['picture']
 		response = make_response(json.dumps('Successfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
+		output = '<meta http-equiv="refresh" content="3; url=%s" /><h1 style="text-align: center; margin-top: 30%%;">Sucessfully disconnected. Redirecting...</h1>' % url_for('showCategories')
 		return output
 
 	# If other response, return error statement
@@ -372,7 +372,7 @@ def forceDisconnect():
 	del login_session['picture']
 	response = make_response(json.dumps('Successfully disconnected.'), 200)
 	response.headers['Content-Type'] = 'application/json'
-	output = '<meta http-equiv="refresh" content="3; url=%s" />Sucessfully disconnected. Redirecting...' % url_for('showCategories')
+	output = '<meta http-equiv="refresh" content="3; url=%s" /><h1 style="text-align: center; margin-top: 30%%;">Sucessfully disconnected. Redirecting...</h1>' % url_for('showCategories')
 	return output
 
 if __name__ == '__main__':
