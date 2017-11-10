@@ -1,9 +1,15 @@
 {% extends "main.html" %} {% block content %} {% include "navbar.html" %}
-<h1><a href="{{ url_for('showItems', category_name=item.category_name) }}">{{ item.category_name }}</a></h1>
-<h2>{{ item.name }}</h2>
-<p>{{ item.description }}</p>
-{% if is_creator %}
-<a href="{{ url_for('editItemInfo', category_name=item.category_name, item_name=item.name) }}">Edit</a>
-<br>
-<a href="{{ url_for('deleteItem', category_name=item.category_name, item_name=item.name) }}">Delete</a>
-{% endif %} {% endblock %}
+<div class="container mt-3">
+	<h1 class="display-4 text-center mb-5"><a href="{{ url_for('showItems', category_name=item.category_name) }}">{{ item.category_name }}</a></h1>
+	<div class="container border border-dark rounded">
+		<h2 class="my-3">{{ item.name }}</h2>
+		<p>{{ item.description }}</p>
+		{% if is_creator %}
+		<a href="{{ url_for('editItemInfo', category_name=item.category_name, item_name=item.name) }}">Edit</a>
+		<br>
+		<a href="{{ url_for('deleteItem', category_name=item.category_name, item_name=item.name) }}">Delete</a>
+		<h1 class="my-3"></h1>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
