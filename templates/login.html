@@ -8,6 +8,7 @@
 	<meta name="google-signin-client_id" content="190838632849-uofbe0dkhm1a2j1k21stds82g58b4m0e.apps.googleusercontent.com">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 	<!-- GOOGLE PLUS SIGN IN BUTTON-->
@@ -31,7 +32,7 @@
 					success: function(result) {
 						// Handle or verify the server response if necessary
 						if (result) {
-							$('#result').html('Login Sucessful<br>' + result + '<br>Redirecting...')
+							$('#result').html('<div style="text-align: center; margin-top: 10%;">Login Sucessful<br>' + result + '<br>Redirecting...</div>')
 							setTimeout(function() {
 								window.location.href = "/catalog";
 							}, 3000);

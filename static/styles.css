@@ -3,6 +3,11 @@ body {
 	font-weight: 500;
 }
 
+#signInButton {
+	text-align: center;
+	margin-top: 30%;
+}
+
 .img-thumbnail {
 	width: 200px;
 	height: 200px;
