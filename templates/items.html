@@ -1,4 +1,12 @@
 {% extends "main.html" %} {% block content %} {% include "navbar.html" %}
+<!-- Flash messages -->
+<div class="flash text-center">
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  {% for message in messages %}
+    <strong>{{ message }}</strong>
+  {% endfor %}
+  {% endif %} {% endwith %}
+</div>
 <div class="container mt-3">
 	<h1 class="display-4 text-center mb-5"><a href="">{{ category_name }}</a></h1>
 	<div class="container border border-dark rounded">
