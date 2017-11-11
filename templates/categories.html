@@ -1,5 +1,12 @@
 {% extends "main.html" %} {% block content %} {% include "navbar.html" %}
 <!-- Categories Icons -->
+<div class="flash text-center">
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  {% for message in messages %}
+    <strong>{{ message }}</strong>
+  {% endfor %}
+  {% endif %} {% endwith %}
+</div>
 <div class="container">
   <h1 class="text-center mt-3 display-4">Categories</h1>
   <div class="row mt-3">

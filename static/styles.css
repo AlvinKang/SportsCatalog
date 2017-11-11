@@ -49,6 +49,12 @@ strong {
 	font-size: 1.2em;
 }
 
+.flash {
+  background-color: #98FB98;
+  width: 100%;
+  text-decoration: none;
+}
+
 /* Breakpoint to adjust spacing for small devices */
 @media (max-width: 419px) {
 	#left-offset {
