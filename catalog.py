@@ -272,6 +272,7 @@ def newItem():
 		if len(entries) > 0:
 			return "<script>function myFunction() {alert('This is a duplicate item. Please enter a different name or category name.');}</script><body onload='myFunction()'><meta http-equiv='refresh' content='1;url=/catalog/%s/' />" % (newItem.category_name)
 		session.add(newItem)
+		flash("Your item has been successfully created")
 		session.commit()
 		return redirect(url_for('showCategories'))
 	else:
@@ -321,6 +322,7 @@ def editItemInfo(category_name, item_name):
 			editedItem.description = request.form['itemDescription']
 
 		session.add(editedItem)
+		flash("Your item has been successfully edited")
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
@@ -341,6 +343,7 @@ def deleteItem(category_name, item_name):
 
 	if request.method == 'POST':
 		session.delete(deletedItem)
+		flash("Your item has been successfully deleted")
 		session.commit()
 		return redirect(url_for('showItems', category_name=category_name))
 	else:
