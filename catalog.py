@@ -310,11 +310,13 @@ def editItemInfo(category_name, item_name):
 
 	if request.method == 'POST':
 		if request.form['itemName']:
-			entries = session.query(Item).filter_by(name=request.form['itemName'], category_name=editedItem.category_name).all()
+			# If the name of the item is changed, check database for duplicate
+			if editedItem.name != request.form['itemName']:
+				entries = session.query(Item).filter_by(name=request.form['itemName'], category_name=editedItem.category_name).all()
 
-			# If duplicate (same name and category name, show alert and redirect
-			if len(entries) > 0:
-				return "<script>function myFunction() {alert('This is a duplicate item. Please enter a different name or category name.');}</script><body onload='myFunction()'><meta http-equiv='refresh' content='1;url=/catalog/%s/' />" % (editedItem.category_name)
+				# If duplicate (same name and category name, show alert and redirect
+				if len(entries) > 0:
+					return "<script>function myFunction() {alert('This is a duplicate item. Please enter a different name or category name.');}</script><body onload='myFunction()'><meta http-equiv='refresh' content='1;url=/catalog/%s/' />" % (editedItem.category_name)
 
 			editedItem.name = request.form['itemName']
 
