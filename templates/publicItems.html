@@ -1,8 +1,15 @@
 {% extends "main.html" %} {% block content %} {% include "publicNavbar.html" %}
 <div class="container mt-3">
 	<h1 class="display-4 text-center mb-5"><a href="">{{ category_name }}</a></h1>
-	{% for item in items %}
-	<p class="text-center lead mt-5"><a href="{{ url_for('showItemInfo', category_name=category_name, item_name=item.name) }}">{{ item.name }}</a></p>
-	{% endfor %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 mx-auto border border-dark rounded">
+				{% for item in items %}
+				<p class="text-center lead mt-5"><a href="{{ url_for('showItemInfo', category_name=category_name, item_name=item.name) }}">{{ item.name }}</a></p>
+				{% endfor %}
+				<div class="mb-5"></div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
