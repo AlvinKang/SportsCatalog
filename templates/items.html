@@ -9,11 +9,16 @@
 </div>
 <div class="container mt-3">
 	<h1 class="display-4 text-center mb-5"><a href="">{{ category_name }}</a></h1>
-	<div class="container border border-dark rounded">
-		{% for item in items %}
-		<p class="text-center lead mt-5"><a href="{{ url_for('showItemInfo', category_name=category_name, item_name=item.name) }}">{{ item.name }}</a> (created by {{ users[loop.index0].name }})</p>
-		{% endfor %}
-		<div class="mb-5"></div>
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-md-6 mx-auto border border-dark rounded">
+				{% for item in items %}
+				<p class="lead mt-5"><a href="{{ url_for('showItemInfo', category_name=category_name, item_name=item.name) }}">{{ item.name }}</a></p>
+				<span class="text-muted smaller">(created by {{ users[loop.index0].name }})</span>
+				{% endfor %}
+				<div class="mb-5"></div>
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}
