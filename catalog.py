@@ -149,7 +149,7 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ''' " style = "width: 300px; height: 300px; border-radius:
+    output += ''' "style = "width: 300px; height: 300px; border-radius:
               150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;">
               '''
     flash("You are now logged in as %s" % login_session['username'])
@@ -301,9 +301,9 @@ def newItem():
         # If the new item is a duplicate entry (same name and category)
         # send alert and redirect
         if len(entries) > 0:
-            return ('''<script>function myFunction() {alert('This is a
-                    duplicate item. Please enter a different name or category
-                    name.');}</script><body onload='myFunction()'>
+            return ('''<script> function myFunction() {
+                    alert('This is a duplicate item.');}
+                    </script><body onload='myFunction()'>
                     <meta http-equiv='refresh' content='1;url=/catalog/%s/'/>
                     ''' % (newItem.category_name))
         session.add(newItem)
@@ -347,10 +347,11 @@ def editItemInfo(category_name, item_name):
 
     # Restrict access to creator, show alert if user tries to manually access
     if editedItem.user_id != login_session['user_id']:
-        return ('''<script>function myFunction() {alert('You are not
-                authorized to edit this item. Please create your own item in
-                order to edit.');}</script><body onload='myFunction()'><meta
-                http-equiv='refresh' content='1;url=/catalog/%s/%s/' />'''
+        return ('''<script>function myFunction() {
+                alert('You are not authorized to edit this item.');}</script>
+                <body onload='myFunction()'>
+                <meta http-equiv='refresh'
+                content='1;url=/catalog/%s/%s/' />'''
                 % (category_name, item_name))
 
     if request.method == 'POST':
@@ -362,14 +363,15 @@ def editItemInfo(category_name, item_name):
                                      category_name=editedItem.category_name) \
                           .all()
 
-            # If duplicate (same name and category name, show alert and
-            # redirect
-            if len(entries) > 0:
-                return ('''<script>function myFunction() {alert('This is a
-                        duplicate item. Please enter a different name or
-                        category name.');}</script><body onload='myFunction()'>
-                        <meta http-equiv='refresh' content='1;url=/catalog/%s
-                        /' />''' % (editedItem.category_name))
+                # If duplicate (same name and category name, flash error and
+                # redirect
+                if len(entries) > 0:
+                    return ('''<script> function myFunction() {
+                            alert('This is a duplicate item.');}
+                            </script><body onload='myFunction()'>
+                            <meta http-equiv='refresh'
+                            content='1;url=/catalog/%s/'/>'''
+                            % (editedItem.category_name))
 
             editedItem.name = request.form['itemName']
 
@@ -398,10 +400,11 @@ def deleteItem(category_name, item_name):
 
     # Restrict access to creator, show alert if user tries to manually access
     if deletedItem.user_id != login_session['user_id']:
-        return ('''<script>function myFunction() {alert('You are not
-                authorized to delete this item. Please create your own item in
-                order to delete.');}</script><body onload='myFunction()'><meta
-                http-equiv='refresh' content='1;url=/catalog/%s/%s/' />'''
+        return ('''<script>function myFunction() {
+                alert('You are not authorized to delete this item.');}</script>
+                <body onload='myFunction()'>
+                <meta http-equiv='refresh'
+                content='1;url=/catalog/%s/%s/' />'''
                 % (category_name, item_name))
 
     if request.method == 'POST':
