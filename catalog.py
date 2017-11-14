@@ -21,10 +21,9 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # Retrieve client information from client_secrets.json
-f = open('client_secrets.json', 'r').read()['web']['client_id']
-CLIENT_ID = json.loads(f)
+f = open('client_secrets.json', 'r').read()
+CLIENT_ID = json.loads(f)['web']['client_id']
 APPLICATION_NAME = "Catalog App"
-
 
 #########################################
 # ANTI-FORGERY TOKEN
