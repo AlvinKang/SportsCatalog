@@ -1,21 +1,22 @@
 # CatalogApp
-This is a project submission for Udacity's Full Stack Nanodegree program. The Python code uses [**Flask**](http://flask.pocoo.org/), a Python microframework, to deploy a Sports Catalog web application using HTML and CSS templates.
-
-run SQL scripts and prints out a report answering the questions required for the Logs Analysis Project.
-
-### Design
-```analysis.py``` connects to the ```news``` database using psycopg2 Python module. First, the SQL queries for each of the three questions are defined as multi-line string variables. Then, a universal ```run_script()``` function executes each query, while three ```format_script()``` functions transform the query outputs into the desired format. Finally, those outputs are printed in order of the questions.
+This is a project submission for Udacity's Full Stack Nanodegree program. The Python code uses [**Flask**](http://flask.pocoo.org/), a Python microframework, to deploy a RESTful Sports Catalog web application implementing Google's OAuth authentication. Upon successful authentication (Google login), the user will be able to create, update, and delete his own items on the catalog, which stores the information on a back-end database.
 
 ## Getting Started
-**IMPORTANT:** It is expected that you have the setup stipulated by Udacity. The SQL database accessed in this project is provided by Udacity and is necessary to be able to execute the Python code.
+**IMPORTANT:** It is expected that you have the setup stipulated by Udacity, such as the correct Vagrant configuration file for VirtualBox with all the dependencies needed to run the app.
 
-This code runs **Python 2.7**.
+### Running the CatalogApp
+Here are the steps to follow to get the app up and running:
+1. Download the contents in this repository as a ZIP and unzip into your Vagrant directory.
+2. Open up the terminal, start up the Vagrant virtual machine, and change directory into where ```CatalogApp``` is located.
+3. Before you run the application, you will have to initiate the database. In your terminal, type ```python database_setup.py```. This will create a file named ```catalog.db```.
+4. Load the entries of the database by typing ```python load_db.py```.
+5. Now that the databse is set up, you can run the wep app by typing ```python catalog.py```.
+6. To access the app, head to **http://localhost:5000** in your browser.
 
-### Installing and Running
-Here are the steps to follow to use Python to print out the report:
-1. Download the files in this repository as a ZIP.
-2. Before you run the Python code, you will have to connect to the database and run the SQL scripts to create views that will be used. After starting ```psql```, copy and paste the scripts from ```SQL-scripts/createView.sql``` into your terminal.
-3. Exit out of ```psql``` and ```cd``` to the directory that you downloaded this repo. Type ```python analysis.py```.
-4. The command above will print out the report to your terminal.
+## Navgating the CatalogApp
+There you can navigate through any of the 6 different categories. To create, edit, or delete catalog items, you must log in. Note that you can only edit or delete items that you have created. Any time you'd like to log out, you may simply log out by clicking **log out** on the top bar.
 
-Alternatively, if you'd like to see the content of the report without executing the code, you can view it in ```output.txt```. You can also see the raw SQL queries for each of the questions in ```/SQL-scripts```, where ```scriptN.sql``` contains the query executed for question N.
+## Error: "Failed to revoke token for given user."
+Typically when logging out, the browser will communicate with Google to revoke the session token that you were assigned when you first logged in. However, if you halted or restarted the app without logging out, the token will not match the one that was previously kept by Google.
+
+In such case, you can force the log out by heading to **http://localhost:5000/forcedc**, which will delete the session and log you out regardless of token mismatch.
