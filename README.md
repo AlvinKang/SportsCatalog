@@ -16,7 +16,17 @@ Here are the steps to follow to get the app up and running:
 ## Navgating the CatalogApp
 There you can navigate through any of the 6 different categories. To create, edit, or delete catalog items, you must log in. Note that you can only edit or delete items that you have created. Any time you'd like to log out, you may simply log out by clicking **log out** on the top bar.
 
-## Error: "Failed to revoke token for given user."
+### API JSON-endpoints
+In addition to user CRUD operations, the user can obtain a JSON-formatted output of the page by accessing the following URLs:
+1. Main page ```http://localhost:5000/catalog/JSON```
+2. Category items page ```http://localhost:5000/catalog/<CATEGORY_HERE>/JSON```, where **<CATEGORY_HERE>** is replaced by the category name
+3. Item info page ```http://localhost:5000/catalog/<CATEGORY_HERE>/<ITEM_HERE>/JSON```, where **<CATEGORY_HERE>** and **<ITEM_HERE>** are replaced by the category name and item name respectively
+
+**IMPORTANT NOTE**: Category names and item names ARE case sensitive. Additionally, if the item name contains a space, you must put ```%20``` in the URL in place of it. For example, if you want to access **Youth Bat** under the **Baseball** category, your url should be ```http://localhost:5000/catalog/Baseball/Youth%20Bat/JSON```.
+
+**SHORT CUT**: Note that you can easily access these by simply appending ```/JSON``` at the end of URL of the current page you are on (except create, edit, and delete pages).
+
+### Error: "Failed to revoke token for given user."
 Typically when logging out, the browser will communicate with Google to revoke the session token that you were assigned when you first logged in. However, if you halted or restarted the app without logging out, the token will not match the one that was previously kept by Google.
 
 In such case, you can force the log out by heading to **http://localhost:5000/forcedc**, which will delete the session and log you out regardless of token mismatch.
