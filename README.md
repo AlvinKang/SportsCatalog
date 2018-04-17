@@ -1,7 +1,7 @@
 # Linux Server Configuration
 This is a project submission for Udacity's Full Stack Nanodegree program. This project involves configuring an Amazon AWS Lightsail Linux Ubuntu server to deploy the Catalog App on the web (via Apache).
 
-**You can check out the app live [here](http://52.13.129.213).**
+**You can check out the app live [here](http://catalog.app.alvinkang.com).**
 
 **You can learn more about the app [here](https://github.com/AlvinKang/CatalogApp).**
 
@@ -48,6 +48,7 @@ In order to complete the project, I referred to the following websites (in no pa
 * [https://blog.bigbinary.com/2016/01/23/configure-postgresql-to-allow-remote-connection.html](https://blog.bigbinary.com/2016/01/23/configure-postgresql-to-allow-remote-connection.html)
 * [https://blog.theodo.fr/2017/03/developping-a-flask-web-app-with-a-postresql-database-making-all-the-possible-errors/](https://blog.theodo.fr/2017/03/developping-a-flask-web-app-with-a-postresql-database-making-all-the-possible-errors/)
 * [https://developers.google.com/identity/protocols/OAuth2WebServer](https://developers.google.com/identity/protocols/OAuth2WebServer)
+* [https://help.ubuntu.com/community/UFW](https://help.ubuntu.com/community/UFW)
 * [https://launchschool.com/blog/how-to-install-postgres-for-linux](https://launchschool.com/blog/how-to-install-postgres-for-linux)
 * [https://marcyes.com/2016/0922-messing-with-postgresql-users-and-permissions/](https://marcyes.com/2016/0922-messing-with-postgresql-users-and-permissions/)
 * [https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html](https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html)
@@ -58,3 +59,4 @@ In order to complete the project, I referred to the following websites (in no pa
 * [https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 * [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 * [https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2](https://www.digitalocean.com/community/tutorials/how-to-use-roles-and-manage-grant-permissions-in-postgresql-on-a-vps--2)
+* [http://xmodulo.com/how-to-force-ssh-login-via-public-key-authentication.html](http://xmodulo.com/how-to-force-ssh-login-via-public-key-authentication.html)
