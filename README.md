@@ -2,12 +2,16 @@
 This is a project submission for Udacity's Full Stack Nanodegree program. This project involves configuring an Amazon AWS Lightsail Linux Ubuntu server to deploy the Catalog App on the web (via Apache).
 
 **You can check out the app live [here](http://52.13.129.213).**
+
 **You can learn more about the app [here](https://github.com/AlvinKang/CatalogApp).**
 
 ## Accessing the Linux Server (Reviewer Only)
 **Server IP: 52.13.129.213**
+
 **SSH port: 2200**
+
 **Username: grader**
+
 You can connect to the server via SSH using the key provided in the submission notes.
 
 ## Configuration Summary
