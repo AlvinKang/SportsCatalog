@@ -37,8 +37,6 @@ I used Postgres as my back-end database for the application. I installed `postgr
 I installed `git` and cloned the Catalog App that I built previously.
 #### CatalogApp modifications
 Since the previous version of Catalog App used `sqlite` and was deployed locally, I had to modify several things. First, I changed the database to connect to my newly set-up Postgres database. Next, I changed the **'Authorized Javascript Origins'** and **'Authorized redirect URIs'** on this app's Google OAuth2.0 credentials to allow access to this API. Since OAuth cannot access IP addresses, I used `xip.io` to wrap the IP address. I also had to modify the path to the locally stored OAuth credentials to be absolute (e.g., `"/.../CatalogApp/CatalogApp/client_secrets.json"`) instead of relative (e.g., `"/client_secrets.json"`). I also fixed some minor bugs in the code.
-#### Redirects
-The server has multiple URL addresses: IP ([http://52.13.129.213](http://52.13.129.213)), host address ([http://ec2-52-13-129-213.us-west-2.compute.amazonaws.com](http://ec2-52-13-129-213.us-west-2.compute.amazonaws.com)), and xip ([http://52.13.129.213.xip.io](http://52.13.129.213.xip.io)). I reconfigured the virtual host config file to redirect to [http://52.13.129.213.xip.io](http://52.13.129.213.xip.io).
 
 ## References
 In order to complete the project, I referred to the following websites (in no particular order):
