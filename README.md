@@ -1,18 +1,9 @@
 # Linux Server Configuration
-This is a project submission for Udacity's Full Stack Nanodegree program. This project involves configuring an Amazon AWS Lightsail Linux Ubuntu server to deploy the Catalog App on the web (via Apache).
+This project involves configuring an Amazon AWS Lightsail Linux Ubuntu server to deploy the Catalog App on the web (via Apache).
 
 **You can check out the app live [here](http://catalog.app.alvinkang.com).**
 
 **You can learn more about the app [here](https://github.com/AlvinKang/CatalogApp).**
-
-## Accessing the Linux Server (Reviewer Only)
-**Server IP: 52.13.129.213**
-
-**SSH port: 2200**
-
-**Username: grader**
-
-You can connect to the server via SSH using the key provided in the submission notes.
 
 ## Configuration Summary
 When the server was first created on AWS Lightsail, Linux Ubuntu (Xenial 16.04) was all that was installed on the machine. In order to successfully deploy the Catalog App, I had to configure and install many things. App-specific Python packages are listed in `requirements.txt`.
