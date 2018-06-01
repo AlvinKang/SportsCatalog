@@ -1,0 +1,19 @@
+{% extends "main.html" %} {% block content %} {% include "navbar.html" %}
+<div class="container mt-3">
+	<h1 class="display-4 text-center">Edit Item</h1>
+	<form class="mx-5" action="{{ url_for('editItemInfo', category_name=category_name, item_name=item.name) }}" method="post">
+		<div class="form-group">
+			<label for="itemName">Name</label>
+			<input class="form-control" type="text" name="itemName" placeholder="{{ item.name }}" required>
+		</div>
+		<div class="form-group">
+			<label for="itemDescription">Description</label>
+			<textarea class="form-control" types="text" name="itemDescription" rows="10" placeholder="{{ item.description }}" required></textarea>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-primary mx-3" type="submit" name="editItem">Update</button>
+			<a class="btn btn-danger align-middle mx-3" href="{{ url_for('showItems', category_name=category_name) }}">Cancel</a>
+		</div>
+	</form>
+</div>
+{% endblock %}

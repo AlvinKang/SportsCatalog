@@ -1,0 +1,13 @@
+{% extends "main.html" %} {% block content %} {% include "navbar.html" %}
+<div class="container mt-3">
+	<h1 class="display-4 text-center">Delete Item</h1>
+	<p class="text-center lead mt-5">Are you sure you want to delete <strong class="text-primary">{{item.name}}</strong> from <strong class="text-secondary">{{item.category_name}}</strong>?
+	</p>
+	<form action="{{ url_for('deleteItem', category_name=item.category_name, item_name=item.name) }}" method="post">
+		<div class="text-center mt-5">
+			<button class="btn btn-danger mx-3" type="submit" name="newItem">Delete</button>
+			<a class="btn btn-dark align-middle mx-3" href="{{ url_for('showItems', category_name=item.category_name) }}">Cancel</a>
+		</div>
+	</form>
+</div>
+{% endblock %}

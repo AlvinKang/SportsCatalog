@@ -1,0 +1,75 @@
+body {
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 500;
+}
+
+#signInButton {
+	text-align: center;
+	margin-top: 30%;
+}
+
+.img-thumbnail {
+	width: 200px;
+	height: 200px;
+}
+
+.brand-name {
+	font-family: 'Julius Sans One', sans-serif;
+}
+
+.category-label {
+	font-size: 2em;
+}
+
+a:hover {
+    text-decoration: none;
+    color: red;
+    transition: all .2s ease-in-out;
+}
+
+#left-offset {
+	margin-left: -3.5rem;
+}
+
+.light-blue:hover {
+	color: #00d4ff;
+	transition: all .3s ease-in-out;
+}
+
+.red:hover {
+	color: #ff0000;
+	transition: all .3s ease-in-out;
+}
+
+.btn:hover {
+	cursor: pointer;
+}
+
+strong {
+	font-size: 1.2em;
+}
+
+.flash {
+  background-color: #98FB98;
+  width: 100%;
+  text-decoration: none;
+}
+
+.smaller {
+	font-size: 0.9em;
+}
+
+/* Breakpoint to adjust spacing for small devices */
+@media (max-width: 419px) {
+	#left-offset {
+		margin-left: 0rem;
+	}
+
+	#right-change {
+		margin-right: 2.5rem;
+	}
+
+	.blankout {
+		display: none;
+	}
+}
