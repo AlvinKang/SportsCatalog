@@ -1,8 +1,8 @@
 # CatalogApp
-This is a project submission for Udacity's Full Stack Nanodegree program. The Python code uses [**Flask**](http://flask.pocoo.org/), a Python microframework, to deploy a RESTful Sports Catalog web application implementing Google's OAuth authentication. Upon successful authentication (Google login), the user will be able to create, update, and delete his own items on the catalog, which stores the information on a back-end database.
+The Python code uses [**Flask**](http://flask.pocoo.org/), a Python microframework, to deploy a RESTful Sports Catalog web application implementing Google's OAuth authentication. Upon successful authentication (Google login), the user will be able to create, update, and delete his own items on the catalog, which stores the information on a back-end database.
 
 ## Getting Started
-**IMPORTANT:** It is expected that you have the setup stipulated by Udacity, such as the correct Vagrant configuration file for VirtualBox with all the dependencies needed to run the app.
+**IMPORTANT:** It is expected that you have the proper Vagrant setup, such as the correct Vagrant configuration file for VirtualBox with all the dependencies needed to run the app.
 
 ### Running the CatalogApp
 Here are the steps to follow to get the app up and running:
