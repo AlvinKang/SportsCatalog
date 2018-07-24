@@ -1,2 +1,6 @@
 .DS_Store
 .json
+*.pyc
+*.db
+client_secrets.json
+linux_setup.txt
