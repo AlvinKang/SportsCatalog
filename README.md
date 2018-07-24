@@ -1,6 +1,6 @@
-# Linux Catalog App
+# Sports Catalog
 
-Catalog App is a full stack RESTful Sports Catalog web app. The front-end is written in HTML, CSS, and Bootstrap. The back-end is written in Python and uses a Flask as the framework to render dynamic pages. The database is implemented in PostgreSQL.
+Sprots Catalog is a full stack RESTful web app. The front-end is written in HTML, CSS, and Bootstrap. The back-end is written in Python and uses a Flask as the framework to render dynamic pages. The database is implemented in PostgreSQL.
 
 User authorization and authentication is handled via Google OAuth, and upon successful authentication, the user will be able to create, update, and delete his own items on the catalog.
 
